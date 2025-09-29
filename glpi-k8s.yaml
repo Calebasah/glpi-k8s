@@ -5,9 +5,9 @@ metadata:
   name: mysql-credentials
 type: Opaque
 stringData:
-  mysql-user: glpi # Replace with actual value or use a secret management tool
-  mysql-password: glpi # Replace with actual value
-  mysql-database: glpi # Replace with actual value
+  mysql-user: glpi
+  mysql-password: glpi
+  mysql-database: glpi
 ---
 # PersistentVolumeClaim for GLPI storage
 apiVersion: v1
@@ -89,7 +89,7 @@ spec:
         persistentVolumeClaim:
           claimName: glpi-data-pvc
 ---
-# Service for GLPIglpi
+# Service for GLPI
 apiVersion: v1
 kind: Service
 metadata:
@@ -102,7 +102,7 @@ spec:
     port: 80
     targetPort: 80
     nodePort: 30080
-  type: NodePort # Use LoadBalancer or Ingress for external access
+  type: NodePort
 ---
 # Deployment for MySQL
 apiVersion: apps/v1
@@ -141,7 +141,7 @@ spec:
               key: mysql-user
         - name: MYSQL_PASSWORD
           valueFrom:
-            secretKeyRef:glpi
+            secretKeyRef:
               name: mysql-credentials
               key: mysql-password
         volumeMounts:
